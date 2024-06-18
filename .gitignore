@@ -1,0 +1,10 @@
+.DS_Store
+.vscode/
+
+.ruff_cache/
+.pytest_cache/
+__pycache__/
+.coverage
+
+dist/
+default/
