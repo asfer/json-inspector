@@ -6,4 +6,4 @@ def decode(s: str) -> dict:
 
 
 def encode(o: dict) -> str:
-    return orjson.dumps(o)
+    return orjson.dumps(o).decode()
