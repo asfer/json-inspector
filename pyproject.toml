@@ -1,7 +1,3 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 [project]
 name = "json-schematizer"
 dynamic = ["version"]
@@ -9,7 +5,7 @@ description = "JSON schema tools"
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = ["json", "schema"]
 authors = [
   { name = "André Fernandes", email = "665811+asfer@users.noreply.github.com" },
 ]
@@ -30,37 +26,46 @@ Documentation = "https://github.com/asfer/json-schematizer#readme"
 Issues = "https://github.com/asfer/json-schematizer/issues"
 Source = "https://github.com/asfer/json-schematizer"
 
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [tool.hatch.version]
-path = "src/json_schematizer/__about__.py"
+path = "src/schematizer/__about__.py"
 
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/json_schematizer tests}"
+[tool.hatch.build.targets.dist]
+packages = ["src/schematizer"]
 
-[tool.hatch.envs.test]
+[tool.hatch.build.targets.wheel]
+packages = ["src/schematizer"]
+
+
+[tool.hatch.envs.tests]
 dependencies = [
-  "coverage[toml]",
   "pytest",
   "pytest-cov",
   "pytest-mock",
 ]
 
-[tool.hatch.envs.test.scripts]
-run-coverage = "pytest --cov-config=pyproject.toml --no-cov-on-fail --cov=src/json_schematizer"
-run = "run-coverage --no-cov"
+[tool.hatch.envs.tests.scripts]
+run-cov = "pytest --cov-config=pyproject.toml --cov=schematizer"
+run = "run-cov --no-cov"
 
-[[tool.hatch.envs.test.matrix]]
+[[tool.hatch.envs.tests.matrix]]
 python = ["3.12", "3.11", "3.10"]
 
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+pythonpath = ["src"]
+
+
 [tool.coverage.run]
-source_pkgs = ["src"]
 branch = true
 parallel = true
 omit = [
-  "src/json_schematizer/__about__.py",
+  "src/schematizer/__about__.py",
 ]
 
 [tool.coverage.report]
@@ -69,3 +74,34 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+
+[tool.hatch.envs.types]
+dependencies = [
+  "mypy",
+]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/schematizer tests}"
+
+
+[tool.hatch.envs.lint]
+dependencies = [
+  "ruff",
+]
+
+[tool.hatch.envs.lint.scripts]
+check = "ruff check src tests && ruff format --diff"
+
+[tool.ruff]
+indent-width = 4
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "B"]
+ignore = ["E501"]  # ignores line length errors
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+line-ending = "auto"

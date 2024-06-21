@@ -1,5 +1,6 @@
 # json-schematizer
 
+[![PyPI - Status](https://img.shields.io/pypi/status/json-schematizer)](https://pypi.org/project/json-schematizer)
 [![PyPI - Version](https://img.shields.io/pypi/v/json-schematizer.svg)](https://pypi.org/project/json-schematizer)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/json-schematizer.svg)](https://pypi.org/project/json-schematizer)
 
