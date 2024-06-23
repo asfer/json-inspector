@@ -1,9 +1,9 @@
 import orjson
 
 
-def decode(s: str) -> dict:
+def decode_json(s: str) -> dict:
     return orjson.loads(s)
 
 
-def encode(o: dict) -> str:
+def encode_json(o: dict) -> str:
     return orjson.dumps(o).decode()
