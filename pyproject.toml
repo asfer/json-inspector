@@ -21,6 +21,9 @@ dependencies = [
   "docopt",
 ]
 
+[project.scripts]
+schematizer = "schematizer.scripts.main:main"
+
 [project.urls]
 Documentation = "https://github.com/asfer/json-schematizer#readme"
 Issues = "https://github.com/asfer/json-schematizer/issues"
